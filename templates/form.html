@@ -1,0 +1,147 @@
+{% extends 'layout.html' %}
+{% block title %} Log form {% endblock %}
+{% block body %}
+Training week #{{ week }}. Training day: {{ idag.day }}.{{ idag.month }}.{{ idag.year }}<br>
+<table>
+    <tr> <!-- Table headers -->
+        <th>Exercise</th>
+        <th>sets</th>
+        <th>reps</th>
+        <th>RPE</th>
+        <th>weight(kg)</th>
+    </tr>
+    <tr> <!-- main move row -->
+        <td>{{ move }}</td>
+        <td><input type="number" value="5"></td>
+        <td><input type="number" value="5"></td>
+        <td><select value="7">
+            {% for i in range(1,11) %}
+            {% if i == 7 %}
+            <option selected>{{ i }}</option>
+            {% else %}
+            <option> {{ i }} </option>
+            {% endif %}
+            {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" value="60"></td>
+    </tr> <!-- end or row #1 -->
+    <tr> <!-- start of row #2 -->
+        <td> <!-- assistance a -->
+            <select name="assistance_a">
+                {% for ex in assistance_a %}
+                <option value='{{ ex }}'>{{ ex }}</option>
+                {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" value="2"></td> <!-- sets -->
+        <td><input type="number" value="15"></td> <!-- reps -->
+        <td><select value="7">                   <!-- rpe -->
+            {% for i in range(1,11) %}
+            {% if i == 7 %}
+            <option selected>{{ i }}</option>
+            {% else %}
+            <option> {{ i }} </option>
+            {% endif %}
+            {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" value="60"></td> <!-- weight -->
+    </tr> <!-- end or row #2 -->
+    <tr> <!-- start of row #3 -->
+        <td> <!-- assistance b.1 -->
+            <select name="assistance_b">
+                {% for ex in assistance_b %}
+                <option value='{{ ex }}'>{{ ex }}</option>
+                {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" value="2"></td> <!-- sets -->
+        <td><input type="number" value="15"></td> <!-- reps -->
+        <td><select value="7">                   <!-- rpe -->
+            {% for i in range(1,11) %}
+            {% if i == 7 %}
+            <option selected>{{ i }}</option>
+            {% else %}
+            <option> {{ i }} </option>
+            {% endif %}
+            {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" value="60"></td> <!-- weight -->
+    </tr> <!-- end or row #3 -->
+    <tr> <!-- start of row #4 -->
+        <td> <!-- assistance b.2 -->
+            <select name="assistance_b">
+                {% for ex in assistance_b %}
+                <option value='{{ ex }}'>{{ ex }}</option>
+                {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" value="2"></td> <!-- sets -->
+        <td><input type="number" value="15"></td> <!-- reps -->
+        <td><select value="7">                   <!-- rpe -->
+            {% for i in range(1,11) %}
+            {% if i == 7 %}
+            <option selected>{{ i }}</option>
+            {% else %}
+            <option> {{ i }} </option>
+            {% endif %}
+            {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" value="60"></td> <!-- weight -->
+    </tr> <!-- end or row #4 -->
+    <tr> <!-- start of row #5 -->
+        <td> <!-- assistance b.2 -->
+            <select name="assistance_c">
+                {% for ex in assistance_c %}
+                <option value='{{ ex }}'>{{ ex }}</option>
+                {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" value="3"></td> <!-- sets -->
+        <td><input type="number" value="15"></td> <!-- reps -->
+        <td><select value="7">                   <!-- rpe -->
+            {% for i in range(1,11) %}
+            {% if i == 7 %}
+            <option selected>{{ i }}</option>
+            {% else %}
+            <option> {{ i }} </option>
+            {% endif %}
+            {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" value="60"></td> <!-- weight -->
+    </tr> <!-- end or row #5 -->
+    <tr> <!-- start of row #6 -->
+        <td> <!-- assistance b.2 -->
+            <select name="assistance_c">
+                {% for ex in assistance_c %}
+                <option value='{{ ex }}'>{{ ex }}</option>
+                {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" value="3"></td> <!-- sets -->
+        <td><input type="number" value="15"></td> <!-- reps -->
+        <td><select value="7">                   <!-- rpe -->
+            {% for i in range(1,11) %}
+            {% if i == 7 %}
+            <option selected>{{ i }}</option>
+            {% else %}
+            <option> {{ i }} </option>
+            {% endif %}
+            {% endfor %}
+            </select>
+        </td>
+        <td><input type="number" value="60"></td> <!-- weight -->
+    </tr> <!-- end or row #6 -->
+</table>
+<textarea id="daynotes" name="daynotes" rows="3" cols="50">
+  Make a note.
+</textarea>
+<br>
+<input type="submit" value="Log workout">
+(when saving more than once, get question if it is ok to override)
+Did you finish workout? yes/no. (form action)
+{% endblock %}
