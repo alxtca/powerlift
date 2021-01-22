@@ -58,8 +58,13 @@
             <a class="nav-item nav-link" href="{{ url_for('select')}}">Workout</a>
             <a class="nav-item nav-link" href="{{ url_for('logs')}}">Logs</a>
             <a class="nav-item nav-link disabled" href="#">Disabled</a>
-            <a class="nav-item nav-link" href="#">Log in</a>
-            <a class="nav-item nav-link" href="#">Log out</a>
+              {% if current_user.is_anonymous %}
+            <a class="nav-item nav-link" href="{{ url_for('login')}}">Log in</a>
+            <a class="nav-item nav-link" href="{{ url_for('register')}}">Register</a>
+              {% else %}
+            <a class="nav-item nav-link" href="{{ url_for('logout')}}">Log out</a>
+              {% endif %}
+            <p>{{ current_user.username }}</p>
 
           </div>
         </div>
