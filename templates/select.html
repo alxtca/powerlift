@@ -3,25 +3,25 @@
 {% block body %}
 <form action="{{ url_for('form') }}" method="POST">
         <label>Training type:</label><br>
-    <select name="season">
+    <select name="season" class="custom-select list1 col-md-4">
         <option value="Offseason" selected>Offseason</option>
         <option value="Pre-Contest">Pre-Contest</option>
     </select>
     <br>
     <label>Training week now is</label><br>
-    <select name="week">{% for i in range(1,11) %}
+    <select name="week" class="custom-select list1 col-md-4">{% for i in range(1,11) %}
         <option value="{{ i }}">{{ i }}</option>
         {% endfor %}
     </select>
     <br>
     <label>Main move for this session:</label><br>
-    <select name="movement">
+    <select name="movement" class="custom-select list1 col-md-4">
         <option value='Squat'>Squat</option>
         <option value='Bench Press'>Bench Press</option>
         <option value='Deadlift'>Deadlift</option>
         <option value='Buff&Fluff'>Buff&Fluff</option>
     </select>
-    <button type="submit">Start Workout</button>
+    <button type="submit" class="btn btn-primary">Start Workout</button>
 
 </form>
 {% endblock %}

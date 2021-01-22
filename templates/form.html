@@ -2,146 +2,277 @@
 {% block title %} Log form {% endblock %}
 {% block body %}
 Training week #{{ week }}. Training day: {{ idag.day }}.{{ idag.month }}.{{ idag.year }}<br>
-<table>
-    <tr> <!-- Table headers -->
-        <th>Exercise</th>
-        <th>sets</th>
-        <th>reps</th>
-        <th>RPE</th>
-        <th>weight(kg)</th>
-    </tr>
-    <tr> <!-- main move row -->
-        <td>{{ move }}</td>
-        <td><input type="number" value="5"></td>
-        <td><input type="number" value="5"></td>
-        <td><select value="7">
-            {% for i in range(1,11) %}
-            {% if i == 7 %}
-            <option selected>{{ i }}</option>
-            {% else %}
-            <option> {{ i }} </option>
-            {% endif %}
-            {% endfor %}
-            </select>
-        </td>
-        <td><input type="number" value="60"></td>
-    </tr> <!-- end or row #1 -->
-    <tr> <!-- start of row #2 -->
-        <td> <!-- assistance a -->
-            <select name="assistance_a">
+<form>
+    <!-- there is no one standard, need to dedicate a week to figure this out.
+    <label for="trainday">Training Day:</label>
+    <input type="date" id="trainday" name="trainday" value="{{ idag.year }}-02-{{ idag.day }}">
+    Training week #{{ week }}. -->
+
+    <div class="container divs">
+        <label>Main move</label>
+        <select class="custom-select list1" disabled>
+            <option value="1">Squat</option>
+            <option value="2">Bench Press</option>
+            <option value="3">Deadlift</option>
+            <option value="4" selected>{{ move }}</option>
+        </select>
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="inputreps">Reps</label>
+                    <input type="number" id="inputreps" class="form-control" value="5">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputsets">Sets</label>
+                    <input type="number" class="form-control" value="5">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputrpe">RPE</label>
+                    <select class="custom-select list1">
+                        <option value="5">5</option>
+                        <option value="6" selected>6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputreps">Weight</label>
+                    <input type="number" class="form-control" value="60">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container divs">
+        <label>Assistance Exercise A</label>
+            <select name="assistance_a" class="custom-select list1">
                 {% for ex in assistance_a %}
                 <option value='{{ ex }}'>{{ ex }}</option>
                 {% endfor %}
             </select>
-        </td>
-        <td><input type="number" value="2"></td> <!-- sets -->
-        <td><input type="number" value="15"></td> <!-- reps -->
-        <td><select value="7">                   <!-- rpe -->
-            {% for i in range(1,11) %}
-            {% if i == 7 %}
-            <option selected>{{ i }}</option>
-            {% else %}
-            <option> {{ i }} </option>
-            {% endif %}
-            {% endfor %}
-            </select>
-        </td>
-        <td><input type="number" value="60"></td> <!-- weight -->
-    </tr> <!-- end or row #2 -->
-    <tr> <!-- start of row #3 -->
-        <td> <!-- assistance b.1 -->
-            <select name="assistance_b">
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="inputreps">Reps</label>
+                    <input type="number" class="form-control" value="12">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputsets">Sets</label>
+                    <input type="number" class="form-control" value="3">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputrpe">RPE</label>
+                    <select class="custom-select list1">
+                        <option value="5">5</option>
+                        <option value="6" selected>6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputreps">Weight</label>
+                    <input type="number" class="form-control" value="60">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container divs">
+        <label>Assistance Exercise B.1</label>
+            <select name="assistance_b" class="custom-select list1">
                 {% for ex in assistance_b %}
                 <option value='{{ ex }}'>{{ ex }}</option>
                 {% endfor %}
             </select>
-        </td>
-        <td><input type="number" value="2"></td> <!-- sets -->
-        <td><input type="number" value="15"></td> <!-- reps -->
-        <td><select value="7">                   <!-- rpe -->
-            {% for i in range(1,11) %}
-            {% if i == 7 %}
-            <option selected>{{ i }}</option>
-            {% else %}
-            <option> {{ i }} </option>
-            {% endif %}
-            {% endfor %}
-            </select>
-        </td>
-        <td><input type="number" value="60"></td> <!-- weight -->
-    </tr> <!-- end or row #3 -->
-    <tr> <!-- start of row #4 -->
-        <td> <!-- assistance b.2 -->
-            <select name="assistance_b">
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="inputreps">Reps</label>
+                    <input type="number" class="form-control" value="15">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputsets">Sets</label>
+                    <input type="number" class="form-control" value="3">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputrpe">RPE</label>
+                    <select class="custom-select list1">
+                        <option value="5">5</option>
+                        <option value="6" selected>6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputreps">Weight</label>
+                    <input type="number" class="form-control" value="60">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container divs">
+        <label>Assistance Exercise B.2</label>
+            <select name="assistance_b" class="custom-select list1">
                 {% for ex in assistance_b %}
                 <option value='{{ ex }}'>{{ ex }}</option>
                 {% endfor %}
             </select>
-        </td>
-        <td><input type="number" value="2"></td> <!-- sets -->
-        <td><input type="number" value="15"></td> <!-- reps -->
-        <td><select value="7">                   <!-- rpe -->
-            {% for i in range(1,11) %}
-            {% if i == 7 %}
-            <option selected>{{ i }}</option>
-            {% else %}
-            <option> {{ i }} </option>
-            {% endif %}
-            {% endfor %}
-            </select>
-        </td>
-        <td><input type="number" value="60"></td> <!-- weight -->
-    </tr> <!-- end or row #4 -->
-    <tr> <!-- start of row #5 -->
-        <td> <!-- assistance b.2 -->
-            <select name="assistance_c">
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="inputreps">Reps</label>
+                    <input type="number" class="form-control" value="15">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputsets">Sets</label>
+                    <input type="number" class="form-control" value="3">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputrpe">RPE</label>
+                    <select class="custom-select list1">
+                        <option value="5">5</option>
+                        <option value="6" selected>6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputreps">Weight</label>
+                    <input type="number" class="form-control" value="60">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container divs">
+        <label>Assistance Exercise C.1</label>
+            <select name="assistance_c" class="custom-select list1">
                 {% for ex in assistance_c %}
                 <option value='{{ ex }}'>{{ ex }}</option>
                 {% endfor %}
             </select>
-        </td>
-        <td><input type="number" value="3"></td> <!-- sets -->
-        <td><input type="number" value="15"></td> <!-- reps -->
-        <td><select value="7">                   <!-- rpe -->
-            {% for i in range(1,11) %}
-            {% if i == 7 %}
-            <option selected>{{ i }}</option>
-            {% else %}
-            <option> {{ i }} </option>
-            {% endif %}
-            {% endfor %}
-            </select>
-        </td>
-        <td><input type="number" value="60"></td> <!-- weight -->
-    </tr> <!-- end or row #5 -->
-    <tr> <!-- start of row #6 -->
-        <td> <!-- assistance b.2 -->
-            <select name="assistance_c">
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="inputreps">Reps</label>
+                    <input type="number" class="form-control" value="15">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputsets">Sets</label>
+                    <input type="number" class="form-control" value="3">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputrpe">RPE</label>
+                    <select class="custom-select list1">
+                        <option value="5">5</option>
+                        <option value="6" selected>6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputreps">Weight</label>
+                    <input type="number" class="form-control" value="60">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container divs">
+        <label>Assistance Exercise C.2</label>
+            <select name="assistance_c" class="custom-select list1">
                 {% for ex in assistance_c %}
                 <option value='{{ ex }}'>{{ ex }}</option>
                 {% endfor %}
             </select>
-        </td>
-        <td><input type="number" value="3"></td> <!-- sets -->
-        <td><input type="number" value="15"></td> <!-- reps -->
-        <td><select value="7">                   <!-- rpe -->
-            {% for i in range(1,11) %}
-            {% if i == 7 %}
-            <option selected>{{ i }}</option>
-            {% else %}
-            <option> {{ i }} </option>
-            {% endif %}
-            {% endfor %}
-            </select>
-        </td>
-        <td><input type="number" value="60"></td> <!-- weight -->
-    </tr> <!-- end or row #6 -->
-</table>
-<textarea id="daynotes" name="daynotes" rows="3" cols="50">
-  Make a note.
-</textarea>
-<br>
-<input type="submit" value="Log workout">
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="inputreps">Reps</label>
+                    <input type="number" class="form-control" value="15">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputsets">Sets</label>
+                    <input type="number" class="form-control" value="3">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputrpe">RPE</label>
+                    <select class="custom-select list1">
+                        <option value="5">5</option>
+                        <option value="6" selected>6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="inputreps">Weight</label>
+                    <input type="number" class="form-control" value="60">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <textarea id="daynotes" name="daynotes" rows="3">
+        Make a note.
+    </textarea>
+    <br>
+    <input type="submit" class="btn btn-primary" value="Log workout">
+</form>
 (when saving more than once, get question if it is ok to override)
 Did you finish workout? yes/no. (form action)
 {% endblock %}
