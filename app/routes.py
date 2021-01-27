@@ -65,9 +65,10 @@ def all_workouts():
     return render_template('all_workouts.html', allwork=all_workouts_list)
 
 
-# Redirect here after successful login
 @app.route('/select')
 def select():
+    # check last performed workout in db and render a message
+    u = User.query.filter_by(username=current_user.username)
     return render_template('select.html')
 
 
@@ -107,6 +108,8 @@ def form():
         assistance_b = ['Error']
         assistance_c = ['Error']
     if training_type == 'Offseason':
+        # check if any workout has been logged before.
+
         return render_template('form.html', move=move, week=week, assistance_a=assistance_a, assistance_b=assistance_b,
                                assistance_c=assistance_c, idag=idag)
     elif training_type == 'Pre-Contest':

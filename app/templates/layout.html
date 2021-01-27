@@ -50,27 +50,52 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="{{ url_for('index')}}">10/20/Life</a>
+
+        <!-- hidden on lg up -->
+        {% if not current_user.is_anonymous %}
+        <div class="navbar-text ml-auto p-2 d-lg-none">
+             Logged in: {{ current_user.username }}
+        </div>
+        {% endif %}
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
+              {% if not current_user.is_anonymous %}
             <a class="nav-item nav-link" href="{{ url_for('select')}}">Workout</a>
             <a class="nav-item nav-link" href="{{ url_for('logs')}}">Logs</a>
-            <a class="nav-item nav-link disabled" href="#">Disabled</a>
+              {% endif %}
+
               {% if current_user.is_anonymous %}
             <a class="nav-item nav-link" href="{{ url_for('login')}}">Log in</a>
             <a class="nav-item nav-link" href="{{ url_for('register')}}">Register</a>
               {% else %}
             <a class="nav-item nav-link" href="{{ url_for('logout')}}">Log out</a>
               {% endif %}
-            <p>{{ current_user.username }}</p>
-
           </div>
         </div>
+
+        <!-- hidden md and down -->
+        {% if not current_user.is_anonymous %}
+        <div class="navbar-text ml-auto p-2 d-none d-lg-block">
+             Logged in: {{ current_user.username }}
+        </div>
+        {% endif %}
+
     </nav>
 
 <div class="container">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li style="color: red;">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 {% block body %}{% endblock %}
     <br>
     <br>

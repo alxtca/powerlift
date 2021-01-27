@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block title %} Select workout {% endblock %}
 {% block body %}
+<p>Your last performed workout {{}}</p>
 <form action="{{ url_for('form') }}" method="POST">
         <label>Training type:</label><br>
     <select name="season" class="custom-select list1 col-md-4">

@@ -9,7 +9,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False)
     password_hash = db.Column(db.String(128))
-    posts = db.relationship('Workout', backref='user', lazy='dynamic')
+    workouts = db.relationship('Workout', backref='user', lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
