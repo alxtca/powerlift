@@ -20,6 +20,7 @@ class User(UserMixin, db.Model):
 
 class Workout(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     main_move = db.Column(db.String(100))
     main_move_reps = db.Column(db.Integer)
