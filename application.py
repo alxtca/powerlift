@@ -7,6 +7,6 @@ from app.models import User, Workout
 # set FLASK_APP=application.py
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db, 'User': User, 'Post': Workout}
+    return {'db': db, 'User': User, 'Workout': Workout}
 
 

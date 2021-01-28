@@ -3,8 +3,8 @@
 {% block body %}
 All your workouts:
 <ul>
-    {% for i in allwork %}
-    <li><a href="#">{{ i }}</a></li>
+    {% for i in current_user.workouts %}
+    <li><a href="#">{{ i.training_type }}.Training week #{{ i.week }}. Main move: {{ i.main_move }}. {{ i.timestamp }}</a></li>
     {% endfor %}
 </ul>
 On click, table similar to workout log will be displayed. But without option to edit data.

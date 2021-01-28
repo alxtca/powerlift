@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app
 from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, login_required, logout_user
-from app.models import User
+from app.models import User, Workout
 from werkzeug.urls import url_parse
 from datetime import date
 
@@ -62,13 +62,13 @@ def index():
 
 @app.route('/allworkouts')
 def all_workouts():
-    return render_template('all_workouts.html', allwork=all_workouts_list)
+    return render_template('all_workouts.html')  # , allwork=all_workouts_list
 
 
 @app.route('/select')
 def select():
     # check last performed workout in db and render a message
-    u = User.query.filter_by(username=current_user.username)
+    # u = User.query.filter_by(username=current_user.username)
     return render_template('select.html')
 
 
@@ -111,13 +111,80 @@ def form():
         # check if any workout has been logged before.
 
         return render_template('form.html', move=move, week=week, assistance_a=assistance_a, assistance_b=assistance_b,
-                               assistance_c=assistance_c, idag=idag)
+                               assistance_c=assistance_c, idag=idag, training_type=training_type)
     elif training_type == 'Pre-Contest':
         message = 'Pre-contest charts have not been developed yet'
         return render_template('error.html', message=message)
     else:
         message = 'Unknown Error'
         return render_template('error.html', message=message)
+
+
+@app.route('/form_save', methods=['POST', 'GET'])
+def form_save():
+    if request.method == 'GET':
+        return redirect(url_for('index'))
+
+    week = request.form.get('week')
+    training_type = request.form.get('training_type')
+
+    main_move = request.form.get('mm')
+    main_move_reps = request.form.get('mm_reps')
+    main_move_sets = request.form.get('mm_sets')
+    main_move_rpe = request.form.get('mm_rpee')
+    main_move_weight = request.form.get('mm_weig')
+
+    assa_move = request.form.get('ae_a')
+    assa_move_reps = request.form.get('ae_a_reps')
+    assa_move_sets = request.form.get('ae_a_sets')
+    assa_move_rpe = request.form.get('ae_a_rpee')
+    assa_move_weight = request.form.get('ae_a_weig')
+
+    assb1_move = request.form.get('ae_b1')
+    assb1_move_reps = request.form.get('ae_b1_reps')
+    assb1_move_sets = request.form.get('ae_b1_sets')
+    assb1_move_rpe = request.form.get('ae_b1_rpee')
+    assb1_move_weight = request.form.get('ae_b1_weig')
+
+    assb2_move = request.form.get('ae_b2')
+    assb2_move_reps = request.form.get('ae_b2_reps')
+    assb2_move_sets = request.form.get('ae_b2_sets')
+    assb2_move_rpe = request.form.get('ae_b2_rpee')
+    assb2_move_weight = request.form.get('ae_b2_weig')
+
+    assc1_move = request.form.get('ae_c1')
+    assc1_move_reps = request.form.get('ae_c1_reps')
+    assc1_move_sets = request.form.get('ae_c1_sets')
+    assc1_move_rpe = request.form.get('ae_c1_rpee')
+    assc1_move_weight = request.form.get('ae_c1_weig')
+
+    assc2_move = request.form.get('ae_c2')
+    assc2_move_reps = request.form.get('ae_c2_reps')
+    assc2_move_sets = request.form.get('ae_c2_sets')
+    assc2_move_rpe = request.form.get('ae_c2_rpee')
+    assc2_move_weight = request.form.get('ae_c2_weig')
+
+    note = request.form.get('daynotes')
+
+    user_id = current_user.id
+
+    w = Workout(main_move=main_move, main_move_reps=main_move_reps, main_move_sets=main_move_sets,
+                main_move_rpe=main_move_rpe, main_move_weight=main_move_weight,
+                assa_move=assa_move, assa_move_reps=assa_move_reps, assa_move_sets=assa_move_sets,
+                assa_move_rpe=assa_move_rpe, assa_move_weight=assa_move_weight,
+                assb1_move=assb1_move, assb1_move_sets=assb1_move_sets, assb1_move_reps=assb1_move_reps,
+                assb1_move_rpe=assb1_move_rpe, assb1_move_weight=assb1_move_weight,
+                assb2_move=assb2_move, assb2_move_sets=assb2_move_sets, assb2_move_reps=assb2_move_reps,
+                assb2_move_rpe=assb2_move_rpe, assb2_move_weight=assb2_move_weight,
+                assc1_move=assc1_move, assc1_move_sets=assc1_move_sets, assc1_move_reps=assc1_move_reps,
+                assc1_move_rpe=assc1_move_rpe, assc1_move_weight=assc1_move_weight,
+                assc2_move=assc2_move, assc2_move_sets=assc2_move_sets, assc2_move_reps=assc2_move_reps,
+                assc2_move_rpe=assc2_move_rpe, assc2_move_weight=assc2_move_weight,
+                note=note, user_id=user_id, week=week, training_type=training_type)
+    db.session.add(w)
+    db.session.commit()
+    flash('Workout has been saved')
+    return render_template('index.html')
 
 
 @app.route('/login', methods=['POST', 'GET'])
