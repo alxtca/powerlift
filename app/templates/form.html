@@ -24,13 +24,13 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
             <div class="col">
                 <div>
                     <label for="i1">Reps</label>
-                    <input name="mm_reps" type="number" id="i1" class="form-control" value="5">
+                    <input name="mm_reps" type="number" id="i1" class="form-control" value="{{main_move_reps}}">
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i2">Sets</label>
-                    <input name="mm_sets" type="number" id="i2" class="form-control" value="5">
+                    <input name="mm_sets" type="number" id="i2" class="form-control" value="{{main_move_sets}}">
                 </div>
             </div>
             <div class="col">
@@ -38,18 +38,19 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
                     <label for="i3">RPE</label>
                     <select name="mm_rpee" id="i3" class="custom-select list1">
                         <option value="5">5</option>
-                        <option value="6" selected>6</option>
+                        <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
                         <option value="9">9</option>
                         <option value="10">10</option>
+                        <option value="{{ main_move_rpe }}" selected>{{ main_move_rpe }}</option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i4">Weight</label>
-                    <input name="mm_weig" id="i4" type="number" class="form-control" value="60">
+                    <input name="mm_weig" id="i4" type="number" class="form-control" value="{% if w %}{{w.main_move_weight}}{% else %}20{% endif %}">
                 </div>
             </div>
         </div>
@@ -61,19 +62,20 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
                 {% for ex in assistance_a %}
                 <option value='{{ ex }}'>{{ ex }}</option>
                 {% endfor %}
+                {% if w %}<option value="{{ w.assa_move }}" selected>{{ w.assa_move }}</option>{% endif %}
             </select>
 
         <div class="row">
             <div class="col">
                 <div>
                     <label for="i6">Reps</label>
-                    <input name="ae_a_reps" id="i6" type="number" class="form-control" value="12">
+                    <input name="ae_a_reps" id="i6" type="number" class="form-control" value="{{assa_move_reps}}">
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i7">Sets</label>
-                    <input name="ae_a_sets" id="i7" type="number" class="form-control" value="3">
+                    <input name="ae_a_sets" id="i7" type="number" class="form-control" value="{{assa_move_sets}}">
                 </div>
             </div>
             <div class="col">
@@ -81,18 +83,19 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
                     <label for="i8">RPE</label>
                     <select name="ae_a_rpee" id="i8" class="custom-select list1">
                         <option value="5">5</option>
-                        <option value="6" selected>6</option>
+                        <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
                         <option value="9">9</option>
                         <option value="10">10</option>
+                        <option value="{{ assa_move_rpe }}" selected>{{ assa_move_rpe }}</option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i9">Weight</label>
-                    <input name="ae_a_weig" id="i9" type="number" class="form-control" value="60">
+                    <input name="ae_a_weig" id="i9" type="number" class="form-control" value="{% if w %}{{w.assa_move_weight}}{% else %}20{% endif %}">
                 </div>
             </div>
         </div>
@@ -104,19 +107,20 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
                 {% for ex in assistance_b %}
                 <option value='{{ ex }}'>{{ ex }}</option>
                 {% endfor %}
+                {% if w %}<option value="{{w.assb1_move}}" selected>{{ w.assb1_move }}</option>{% endif %}
             </select>
 
         <div class="row">
             <div class="col">
                 <div>
                     <label for="i11">Reps</label>
-                    <input name="ae_b1_reps" id="i11" type="number" class="form-control" value="15">
+                    <input name="ae_b1_reps" id="i11" type="number" class="form-control" value="{{assb1_move_reps}}">
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i12">Sets</label>
-                    <input name="ae_b1_sets" id="i12" type="number" class="form-control" value="3">
+                    <input name="ae_b1_sets" id="i12" type="number" class="form-control" value="{{assb1_move_sets}}">
                 </div>
             </div>
             <div class="col">
@@ -124,18 +128,19 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
                     <label for="i13">RPE</label>
                     <select name="ae_b1_rpee" id="i13" class="custom-select list1">
                         <option value="5">5</option>
-                        <option value="6" selected>6</option>
+                        <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
                         <option value="9">9</option>
                         <option value="10">10</option>
+                        <option value="{{ assb1_move_rpe }}" selected>{{ assb1_move_rpe }}</option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i14">Weight</label>
-                    <input name="ae_b1_weig" id="i14" type="number" class="form-control" value="60">
+                    <input name="ae_b1_weig" id="i14" type="number" class="form-control" value="{% if w %}{{w.assb1_move_weight}}{% else %}20{% endif %}">
                 </div>
             </div>
         </div>
@@ -147,19 +152,20 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
                 {% for ex in assistance_b %}
                 <option value='{{ ex }}'>{{ ex }}</option>
                 {% endfor %}
+                {% if w %}<option value="{{w.assb2_move}}" selected>{{ w.assb2_move }}</option>{% endif %}
             </select>
 
         <div class="row">
             <div class="col">
                 <div>
                     <label for="i16">Reps</label>
-                    <input name="ae_b2_reps" id="i16" type="number" class="form-control" value="15">
+                    <input name="ae_b2_reps" id="i16" type="number" class="form-control" value="{{assb2_move_reps}}">
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i17">Sets</label>
-                    <input name="ae_b2_sets" id="i17" type="number" class="form-control" value="3">
+                    <input name="ae_b2_sets" id="i17" type="number" class="form-control" value="{{assb2_move_sets}}">
                 </div>
             </div>
             <div class="col">
@@ -167,18 +173,19 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
                     <label for="i18">RPE</label>
                     <select name="ae_b2_rpee" id="i18" class="custom-select list1">
                         <option value="5">5</option>
-                        <option value="6" selected>6</option>
+                        <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
                         <option value="9">9</option>
                         <option value="10">10</option>
+                        <option value="{{ assb2_move_rpe }}" selected>{{ assb2_move_rpe }}</option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i19">Weight</label>
-                    <input name="ae_b2_weig" id="i19" type="number" class="form-control" value="60">
+                    <input name="ae_b2_weig" id="i19" type="number" class="form-control" value="{% if w %}{{w.assb2_move_weight}}{% else %}20{% endif %}">
                 </div>
             </div>
         </div>
@@ -190,19 +197,20 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
                 {% for ex in assistance_c %}
                 <option value='{{ ex }}'>{{ ex }}</option>
                 {% endfor %}
+                {% if w %}<option value="{{w.assc1_move}}" selected>{{ w.assc1_move }}</option>{% endif %}
             </select>
 
         <div class="row">
             <div class="col">
                 <div>
                     <label for="i21">Reps</label>
-                    <input name="ae_c1_reps" id="i21" type="number" class="form-control" value="15">
+                    <input name="ae_c1_reps" id="i21" type="number" class="form-control" value="{{assc1_move_reps}}">
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i22">Sets</label>
-                    <input name="ae_c1_sets" id="i22" type="number" class="form-control" value="3">
+                    <input name="ae_c1_sets" id="i22" type="number" class="form-control" value="{{assc1_move_sets}}">
                 </div>
             </div>
             <div class="col">
@@ -210,18 +218,19 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
                     <label for="i23">RPE</label>
                     <select name="ae_c1_rpee" id="i23" class="custom-select list1">
                         <option value="5">5</option>
-                        <option value="6" selected>6</option>
+                        <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
                         <option value="9">9</option>
                         <option value="10">10</option>
+                        <option value="{{ assc1_move_rpe }}" selected>{{ assc1_move_rpe }}</option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i24">Weight</label>
-                    <input name="ae_c1_weig" id="i24" type="number" class="form-control" value="60">
+                    <input name="ae_c1_weig" id="i24" type="number" class="form-control" value="{% if w %}{{w.assc1_move_weight}}{% else %}20{% endif %}">
                 </div>
             </div>
         </div>
@@ -233,19 +242,20 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
                 {% for ex in assistance_c %}
                 <option value='{{ ex }}'>{{ ex }}</option>
                 {% endfor %}
+                {% if w %}<option value="{{w.assc2_move}}" selected>{{ w.assc2_move }}</option>{% endif %}
             </select>
 
         <div class="row">
             <div class="col">
                 <div>
                     <label for="i26">Reps</label>
-                    <input name="ae_c2_reps" id="i26" type="number" class="form-control" value="15">
+                    <input name="ae_c2_reps" id="i26" type="number" class="form-control" value="{{assc2_move_reps}}">
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i27">Sets</label>
-                    <input name="ae_c2_sets" id="i27" type="number" class="form-control" value="3">
+                    <input name="ae_c2_sets" id="i27" type="number" class="form-control" value="{{assc2_move_sets}}">
                 </div>
             </div>
             <div class="col">
@@ -253,18 +263,19 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
                     <label for="i28">RPE</label>
                     <select name="ae_c2_rpee" id="i28" class="custom-select list1">
                         <option value="5">5</option>
-                        <option value="6" selected>6</option>
+                        <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
                         <option value="9">9</option>
                         <option value="10">10</option>
+                        <option value="{{ assc2_move_rpe }}" selected>{{ assc2_move_rpe }}</option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div>
                     <label for="i29">Weight</label>
-                    <input name="ae_c2_weig" id="i29" type="number" class="form-control" value="60">
+                    <input name="ae_c2_weig" id="i29" type="number" class="form-control" value="{% if w %}{{w.assc2_move_weight}}{% else %}20{% endif %}">
                 </div>
             </div>
         </div>
@@ -276,6 +287,4 @@ Chart type: {{ training_type }}. Training week #{{ week }}. Training day: {{ ida
     <br>
     <input type="submit" class="btn btn-primary" value="Log workout">
 </form>
-(when saving more than once, get question if it is ok to override)
-Did you finish workout? yes/no. (form action)
 {% endblock %}

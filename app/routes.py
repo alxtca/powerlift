@@ -60,16 +60,10 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/allworkouts')
-def all_workouts():
-    return render_template('all_workouts.html')  # , allwork=all_workouts_list
-
-
-@app.route('/select')
-def select():
-    # check last performed workout in db and render a message
-    # u = User.query.filter_by(username=current_user.username)
-    return render_template('select.html')
+@app.route('/log_display/<int:work_id>')
+def log_display(work_id):
+    w = Workout.query.get(int(work_id))
+    return render_template('logged_workout.html', w=w)
 
 
 # Redirect here after successful login
@@ -78,15 +72,47 @@ def logs():
     return render_template('logs.html')
 
 
+@app.route('/select')
+def select():
+    # select last performed workout for this user:
+    w = Workout.query.order_by(Workout.id.desc()).filter(Workout.user_id == current_user.id).first()
+
+    # catch errors if user never had a workout logged.
+    if w is not None:
+        if w.main_move == 'Squat':
+            main_move_today = 'Bench Press'
+            week = int(w.week)
+        elif w.main_move == 'Bench Press':
+            main_move_today = 'Deadlift'
+            week = int(w.week)
+        else:
+            main_move_today = 'Squat'
+            week = int(w.week)+1
+        if w.training_type == 'Offseason':
+            training_type = 'Offseason'
+
+    if w is None:
+        main_move_today = None
+        week = None
+        training_type = None
+
+    if week == 11:
+        week = 1
+
+    return render_template('select.html', w=w, main_move_today=main_move_today, week=week, training_type=training_type)
+
+
 @app.route('/form', methods=['POST', 'GET'])
 def form():
+    # shall not be possible to access this form without selecting correct values first:
     if request.method == 'GET':
         # message = 'You need to select workout on selection page before accessing this page'
         # return render_template('error.html', message=message)
         return redirect(url_for('select'))
+
     move = request.form.get('movement')
-    week = request.form.get('week')
-    training_type = request.form.get('season')  # atm only off-season chart is available
+    week = int(request.form.get('week'))
+    training_type = request.form.get('season')
 
     # check what day is selected. Based on that send appropriate assistance exercises lists to html form:
     if move == 'Squat':
@@ -107,13 +133,181 @@ def form():
         assistance_a = ['Error']
         assistance_b = ['Error']
         assistance_c = ['Error']
+    # Offseason charts:
     if training_type == 'Offseason':
-        # check if any workout has been logged before.
+
+        # Set correct sets, reps, RPE for every week#
+        if week == 1:
+            main_move_reps = 5
+            main_move_sets = 5
+            main_move_rpe = 6
+            assa_move_reps = 6
+            assa_move_sets = 2
+            assa_move_rpe = 7
+            assb1_move_reps = assb2_move_reps = 12
+            assb1_move_sets = assb2_move_sets = 3
+            assb1_move_rpe = assb2_move_rpe = 8
+            assc1_move_reps = assc2_move_reps = 15
+            assc1_move_sets = assc2_move_sets = 3
+            assc1_move_rpe = assc2_move_rpe = 8
+
+        elif week == 2:
+            main_move_reps = 4
+            main_move_sets = 4
+            main_move_rpe = 6
+            assa_move_reps = 6
+            assa_move_sets = 3
+            assa_move_rpe = 7
+            assb1_move_reps = assb2_move_reps = 12
+            assb1_move_sets = assb2_move_sets = 3
+            assb1_move_rpe = assb2_move_rpe = 8
+            assc1_move_reps = assc2_move_reps = 15
+            assc1_move_sets = assc2_move_sets = 3
+            assc1_move_rpe = assc2_move_rpe = 8
+
+        elif week == 3:
+            main_move_reps = 1
+            main_move_sets = 5
+            main_move_rpe = 5
+            assa_move_reps = 6
+            assa_move_sets = 2
+            assa_move_rpe = 7
+            assb1_move_reps = assb2_move_reps = 15
+            assb1_move_sets = assb2_move_sets = 3
+            assb1_move_rpe = assb2_move_rpe = 8
+            assc1_move_reps = assc2_move_reps = 15
+            assc1_move_sets = assc2_move_sets = 3
+            assc1_move_rpe = assc2_move_rpe = 8
+
+        elif week == 4:
+            main_move_reps = 3
+            main_move_sets = 3
+            main_move_rpe = 7
+            assa_move_reps = 6
+            assa_move_sets = 4
+            assa_move_rpe = 7
+            assb1_move_reps = assb2_move_reps = 10
+            assb1_move_sets = assb2_move_sets = 3
+            assb1_move_rpe = assb2_move_rpe = 8
+            assc1_move_reps = assc2_move_reps = 12
+            assc1_move_sets = assc2_move_sets = 3
+            assc1_move_rpe = assc2_move_rpe = 8
+
+        elif week == 5:
+            main_move_reps = 5
+            main_move_sets = 5
+            main_move_rpe = 7
+            assa_move_reps = 4
+            assa_move_sets = 4
+            assa_move_rpe = 7
+            assb1_move_reps = assb2_move_reps = 10
+            assb1_move_sets = assb2_move_sets = 4
+            assb1_move_rpe = assb2_move_rpe = 8
+            assc1_move_reps = assc2_move_reps = 12
+            assc1_move_sets = assc2_move_sets = 3
+            assc1_move_rpe = assc2_move_rpe = 8
+
+        elif week == 6:
+            main_move_reps = 1
+            main_move_sets = 5
+            main_move_rpe = 7
+            assa_move_reps = 4
+            assa_move_sets = 2
+            assa_move_rpe = 7
+            assb1_move_reps = assb2_move_reps = 15
+            assb1_move_sets = assb2_move_sets = 3
+            assb1_move_rpe = assb2_move_rpe = 8
+            assc1_move_reps = assc2_move_reps = 15
+            assc1_move_sets = assc2_move_sets = 3
+            assc1_move_rpe = assc2_move_rpe = 8
+
+        elif week == 7:
+            main_move_reps = 4
+            main_move_sets = 4
+            main_move_rpe = 7
+            assa_move_reps = 4
+            assa_move_sets = 4
+            assa_move_rpe = 7
+            assb1_move_reps = assb2_move_reps = 10
+            assb1_move_sets = assb2_move_sets = 3
+            assb1_move_rpe = assb2_move_rpe = 8
+            assc1_move_reps = assc2_move_reps = 15
+            assc1_move_sets = assc2_move_sets = 3
+            assc1_move_rpe = assc2_move_rpe = 8
+
+        elif week == 8:
+            main_move_reps = 3
+            main_move_sets = 3
+            main_move_rpe = 7
+            assa_move_reps = 4
+            assa_move_sets = 4
+            assa_move_rpe = 7
+            assb1_move_reps = assb2_move_reps = 10
+            assb1_move_sets = assb2_move_sets = 3
+            assb1_move_rpe = assb2_move_rpe = 8
+            assc1_move_reps = assc2_move_reps = 15
+            assc1_move_sets = assc2_move_sets = 3
+            assc1_move_rpe = assc2_move_rpe = 8
+
+        elif week == 9:
+            main_move_reps = 1
+            main_move_sets = 5
+            main_move_rpe = 7
+            assa_move_reps = 2
+            assa_move_sets = 2
+            assa_move_rpe = 7
+            assb1_move_reps = assb2_move_reps = 10
+            assb1_move_sets = assb2_move_sets = 2
+            assb1_move_rpe = assb2_move_rpe = 8
+            assc1_move_reps = assc2_move_reps = 15
+            assc1_move_sets = assc2_move_sets = 2
+            assc1_move_rpe = assc2_move_rpe = 8
+
+        else:
+            main_move_reps = 1
+            main_move_sets = 1
+            main_move_rpe = 5
+            assa_move_reps = 2
+            assa_move_sets = 2
+            assa_move_rpe = 7
+            assb1_move_reps = assb2_move_reps = 10
+            assb1_move_sets = assb2_move_sets = 2
+            assb1_move_rpe = assb2_move_rpe = 7
+            assc1_move_reps = assc2_move_reps = 12
+            assc1_move_sets = assc2_move_sets = 2
+            assc1_move_rpe = assc2_move_rpe = 7
+
+        # check if workout of similar type has been logged before.
+        w = Workout.query.order_by(Workout.id.desc()).filter(Workout.user_id == current_user.id).\
+            filter(Workout.main_move == move).first()
+        if w is None:  # First training/week ever
+            return render_template('form.html', move=move, week=week, idag=idag, assistance_a=assistance_a,
+                                   assistance_b=assistance_b, assistance_c=assistance_c, training_type=training_type,
+                                   main_move_reps=main_move_reps, main_move_sets=main_move_sets, main_move_rpe=main_move_rpe,
+                                   assa_move_rpe=assa_move_rpe, assa_move_sets=assa_move_sets, assa_move_reps=assa_move_reps,
+                                   assb1_move_rpe=assb1_move_rpe, assb1_move_sets=assb1_move_sets, assb1_move_reps=assb1_move_reps,
+                                   assb2_move_rpe=assb2_move_rpe, assb2_move_sets=assb2_move_sets, assb2_move_reps=assb2_move_reps,
+                                   assc1_move_rpe=assc1_move_rpe, assc1_move_sets=assc1_move_sets, assc1_move_reps=assc1_move_reps,
+                                   assc2_move_rpe=assc2_move_rpe, assc2_move_sets=assc2_move_sets, assc2_move_reps=assc2_move_reps)
 
         return render_template('form.html', move=move, week=week, assistance_a=assistance_a, assistance_b=assistance_b,
-                               assistance_c=assistance_c, idag=idag, training_type=training_type)
+                               assistance_c=assistance_c, idag=idag, training_type=training_type, w=w,
+                               main_move_reps=main_move_reps, main_move_sets=main_move_sets,
+                               main_move_rpe=main_move_rpe,
+                               assa_move_rpe=assa_move_rpe, assa_move_sets=assa_move_sets,
+                               assa_move_reps=assa_move_reps,
+                               assb1_move_rpe=assb1_move_rpe, assb1_move_sets=assb1_move_sets,
+                               assb1_move_reps=assb1_move_reps,
+                               assb2_move_rpe=assb2_move_rpe, assb2_move_sets=assb2_move_sets,
+                               assb2_move_reps=assb2_move_reps,
+                               assc1_move_rpe=assc1_move_rpe, assc1_move_sets=assc1_move_sets,
+                               assc1_move_reps=assc1_move_reps,
+                               assc2_move_rpe=assc2_move_rpe, assc2_move_sets=assc2_move_sets,
+                               assc2_move_reps=assc2_move_reps
+                               )
+
     elif training_type == 'Pre-Contest':
-        message = 'Pre-contest charts have not been developed yet'
+        message = 'Pre-contest charts have not been implemented yet. Please select Offseason.'
         return render_template('error.html', message=message)
     else:
         message = 'Unknown Error'

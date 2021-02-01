@@ -1,12 +1,10 @@
 {% extends 'layout.html' %}
 {% block title %} Logs {% endblock %}
 {% block body %}
-Select workout to display. <a href="{{ url_for('all_workouts') }}">Click here</a><br>
-(I want to see a list of all workouts with a date, type of workout, week#<br>
-example: Squat day, week #8, date: 11.01.21) <br><br>
-
-Good to have feature with nice graphs: <br>
-Select exercise to see the progress. <br>
-( I want to select first main move, then see the list off all exercises that has been ever logged to my workouts related to that move. <br>
-Don't show any never executed once.)
+All your workouts. Click to see details:
+<ul>
+    {% for i in current_user.workouts %}
+    <li><a href="{{ url_for('log_display', work_id=i.id) }}">{{ i.training_type }}.Training week #{{ i.week }}. Main move: {{ i.main_move }}. {{ i.timestamp }}</a></li>
+    {% endfor %}
+</ul>
 {% endblock %}

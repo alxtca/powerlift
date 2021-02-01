@@ -1,0 +1,226 @@
+{% extends 'layout.html' %}
+{% block title %} Log form {% endblock %}
+{% block body %}
+Chart type: {{ w.training_type }}. Training week #{{ w.week }}. Training day: {{ w.timestamp }}<br>
+<form>
+    <div class="container divs">
+        <label for="i0">Main move</label>
+        <select id="i0" name="mm" class="custom-select list1" disabled>
+            <option value="{{ w.main_move }}" selected>{{ w.main_move }}</option>
+        </select>
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="i1">Reps</label>
+                    <input name="mm_reps" type="number" id="i1" class="form-control" value="{{ w.main_move_reps }}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i2">Sets</label>
+                    <input name="mm_sets" type="number" id="i2" class="form-control" value="{{ w.main_move_sets }}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i3">RPE</label>
+                    <select name="mm_rpee" id="i3" class="custom-select list1" disabled>
+                        <option value="{{ w.main_move_rpe }}" selected>{{ w.main_move_rpe }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i4">Weight</label>
+                    <input name="mm_weig" id="i4" type="number" class="form-control" value="{{w.main_move_weight}}" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container divs">
+        <label for="i5">Assistance Exercise A</label>
+            <select name="ae_a" id="i5" class="custom-select list1" disabled>
+                {% if w %}<option value="{{ w.assa_move }}" selected>{{ w.assa_move }}</option>{% endif %}
+            </select>
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="i6">Reps</label>
+                    <input name="ae_a_reps" id="i6" type="number" class="form-control" value="{{w.assa_move_reps}}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i7">Sets</label>
+                    <input name="ae_a_sets" id="i7" type="number" class="form-control" value="{{w.assa_move_sets}}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i8">RPE</label>
+                    <select name="ae_a_rpee" id="i8" class="custom-select list1" disabled>
+                        <option value="{{ w.assa_move_rpe }}" selected>{{ w.assa_move_rpe }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i9">Weight</label>
+                    <input name="ae_a_weig" id="i9" type="number" class="form-control" value="{{w.assa_move_weight}}" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container divs">
+        <label for="i10">Assistance Exercise B.1</label>
+            <select id="i10" name="ae_b1" class="custom-select list1" disabled>
+                {% if w %}<option value="{{w.assb1_move}}" selected>{{ w.assb1_move }}</option>{% endif %}
+            </select>
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="i11">Reps</label>
+                    <input name="ae_b1_reps" id="i11" type="number" class="form-control" value="{{w.assb1_move_reps}}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i12">Sets</label>
+                    <input name="ae_b1_sets" id="i12" type="number" class="form-control" value="{{w.assb1_move_sets}}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i13">RPE</label>
+                    <select name="ae_b1_rpee" id="i13" class="custom-select list1" disabled>
+                        <option value="{{ w.assb1_move_rpe }}" selected>{{ w.assb1_move_rpe }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i14">Weight</label>
+                    <input name="ae_b1_weig" id="i14" type="number" class="form-control" value="{{w.assb1_move_weight}}" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container divs">
+        <label for="i15">Assistance Exercise B.2</label>
+            <select id="i15" name="ae_b2" class="custom-select list1" disabled>
+                {% if w %}<option value="{{w.assb2_move}}" selected>{{ w.assb2_move }}</option>{% endif %}
+            </select>
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="i16">Reps</label>
+                    <input name="ae_b2_reps" id="i16" type="number" class="form-control" value="{{w.assb2_move_reps}}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i17">Sets</label>
+                    <input name="ae_b2_sets" id="i17" type="number" class="form-control" value="{{w.assb2_move_sets}}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i18">RPE</label>
+                    <select name="ae_b2_rpee" id="i18" class="custom-select list1" disabled>
+                        <option value="{{ w.assb2_move_rpe }}" selected>{{ w.assb2_move_rpe }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i19">Weight</label>
+                    <input name="ae_b2_weig" id="i19" type="number" class="form-control" value="{{w.assb2_move_weight}}" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container divs">
+        <label for="i20">Assistance Exercise C.1</label>
+            <select id="i20" name="ae_c1" class="custom-select list1" disabled>
+                {% if w %}<option value="{{w.assc1_move}}" selected>{{ w.assc1_move }}</option>{% endif %}
+            </select>
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="i21">Reps</label>
+                    <input name="ae_c1_reps" id="i21" type="number" class="form-control" value="{{w.assc1_move_reps}}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i22">Sets</label>
+                    <input name="ae_c1_sets" id="i22" type="number" class="form-control" value="{{w.assc1_move_sets}}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i23">RPE</label>
+                    <select name="ae_c1_rpee" id="i23" class="custom-select list1" disabled>
+                        <option value="{{ w.assc1_move_rpe }}" selected>{{ w.assc1_move_rpe }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i24">Weight</label>
+                    <input name="ae_c1_weig" id="i24" type="number" class="form-control" value="{{w.assc1_move_weight}}" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container divs">
+        <label for="i25">Assistance Exercise C.2</label>
+            <select id="i25" name="ae_c2" class="custom-select list1" disabled>
+                {% if w %}<option value="{{ w.assc2_move}}" selected>{{ w.assc2_move }}</option>{% endif %}
+            </select>
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <label for="i26">Reps</label>
+                    <input name="ae_c2_reps" id="i26" type="number" class="form-control" value="{{w.assc2_move_reps}}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i27">Sets</label>
+                    <input name="ae_c2_sets" id="i27" type="number" class="form-control" value="{{w.assc2_move_sets}}" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i28">RPE</label>
+                    <select name="ae_c2_rpee" id="i28" class="custom-select list1" disabled>
+                        <option value="{{ w.assc2_move_rpe }}" selected>{{ w.assc2_move_rpe }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label for="i29">Weight</label>
+                    <input name="ae_c2_weig" id="i29" type="number" class="form-control" value="{{w.assc2_move_weight}}" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <textarea id="daynotes" name="daynotes" rows="3" maxlength="4000" disabled>
+        {{ w.note }}
+    </textarea>
+</form>
+{% endblock %}

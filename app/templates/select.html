@@ -1,18 +1,29 @@
 {% extends 'layout.html' %}
 {% block title %} Select workout {% endblock %}
 {% block body %}
-<p>Your last performed workout --TBD--</p>
+{% if w %}
+<p>Your latest performed workout was: {{ w.main_move }}</p>
+{% else %}
+<p>Welcome to your first workout</p>
+{% endif %}
 <form action="{{ url_for('form') }}" method="POST">
         <label for="id01">Training type:</label><br>
     <select id="id01" name="season" class="custom-select list1 col-md-4">
-        <option value="Offseason" selected>Offseason</option>
+        <option value="Offseason">Offseason</option>
         <option value="Pre-Contest">Pre-Contest</option>
+        {% if training_type %}
+        <option value="{{ training_type }}" selected>{{training_type}} (should be)</option>
+        {% endif %}
     </select>
     <br>
     <label for="id02">Training week now is</label><br>
-    <select id="id02" name="week" class="custom-select list1 col-md-4">{% for i in range(1,11) %}
+    <select id="id02" name="week" class="custom-select list1 col-md-4">
+        {% for i in range(1,11) %}
         <option value="{{ i }}">{{ i }}</option>
         {% endfor %}
+        {% if week %}
+        <option value="{{ week }}" selected>{{ week }} (should be)</option>
+        {% endif %}
     </select>
     <br>
     <label for="id03">Main move for this session:</label><br>
@@ -21,6 +32,9 @@
         <option value='Bench Press'>Bench Press</option>
         <option value='Deadlift'>Deadlift</option>
         <option value='Buff&Fluff'>Buff&Fluff</option>
+        {% if main_move_today %}
+        <option value="{{ main_move_today }}" selected>{{ main_move_today }} (should be)</option>
+        {% endif %}
     </select>
     <button type="submit" class="btn btn-primary">Start Workout</button>
 </form>
