@@ -3,8 +3,20 @@
 {% block body %}
 All your workouts. Click to see details:
 <ul>
-    {% for i in current_user.workouts %}
-    <li><a href="{{ url_for('log_display', work_id=i.id) }}">{{ i.training_type }}.Training week #{{ i.week }}. Main move: {{ i.main_move }}. {{ i.timestamp }}</a></li>
+    {% for i in w_logs.items %}
+    <li><a href="{{ url_for('log_display', work_id=i.id) }}">{{ i.training_type }}.Training week #{{ i.week }}. Main move: {{ i.main_move }}.
+        {{ i.timestamp.day }}-{{ i.timestamp.month }}-{{ i.timestamp.year }}</a></li>
+    {% endfor %}
+    {% for page_num in w_logs.iter_pages(left_edge=1, right_edge=1, right_current=3) %}
+        {% if page_num %}
+            {% if w_logs.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('logs', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('logs', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
     {% endfor %}
 </ul>
 {% endblock %}

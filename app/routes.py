@@ -69,7 +69,10 @@ def log_display(work_id):
 # Redirect here after successful login
 @app.route('/logs')
 def logs():
-    return render_template('logs.html')
+    page = request.args.get('page', 1, type=int)
+    w_logs = Workout.query.order_by(Workout.id.desc()).filter(Workout.user_id == current_user.id).\
+        paginate(page=page, per_page=5)
+    return render_template('logs.html', w_logs=w_logs)
 
 
 @app.route('/select')
