@@ -9,17 +9,7 @@ from datetime import date
 
 idag = date.today()
 
-# dummy data
-all_workouts_list = ['Squat day. week#1, date: 11.01.21 ', 'Bench day. week#1, date: 11.01.21',
-                     'Deadlift day. week#1, date: 11.01.21',
-                     'Squat day. week#1, date: 11.01.21 ', 'Bench day. week#1, date: 11.01.21',
-                     'Deadlift day. week#1, date: 11.01.21',
-                     'Squat day. week#1, date: 11.01.21 ', 'Bench day. week#1, date: 11.01.21',
-                     'Deadlift day. week#1, date: 11.01.21',
-                     'Squat day. week#1, date: 11.01.21 ', 'Bench day. week#1, date: 11.01.21',
-                     'Deadlift day. week#1, date: 11.01.21'
-                     ]
-
+# Lists with all exercises:
 # pick one
 squat_assistance_a = ['Pause Squat', 'Box Squat', 'Super-Wide Box Squats', 'Close-Stance Squats', 'Front Squats',
                       'Sumo Deadlift (touch&go)', 'Piston Squats', 'Speed Squats', 'Form Squats', 'Front Pause Squats']
@@ -61,13 +51,14 @@ def index():
 
 
 @app.route('/log_display/<int:work_id>')
+@login_required
 def log_display(work_id):
     w = Workout.query.get(int(work_id))
     return render_template('logged_workout.html', w=w)
 
 
-# Redirect here after successful login
 @app.route('/logs')
+@login_required
 def logs():
     page = request.args.get('page', 1, type=int)
     w_logs = Workout.query.order_by(Workout.id.desc()).filter(Workout.user_id == current_user.id).\
@@ -76,6 +67,7 @@ def logs():
 
 
 @app.route('/select')
+@login_required
 def select():
     # select last performed workout for this user:
     w = Workout.query.order_by(Workout.id.desc()).filter(Workout.user_id == current_user.id).first()
@@ -106,6 +98,7 @@ def select():
 
 
 @app.route('/form', methods=['POST', 'GET'])
+@login_required
 def form():
     # shall not be possible to access this form without selecting correct values first:
     if request.method == 'GET':
@@ -318,6 +311,7 @@ def form():
 
 
 @app.route('/form_save', methods=['POST', 'GET'])
+@login_required
 def form_save():
     if request.method == 'GET':
         return redirect(url_for('index'))
